@@ -13,35 +13,27 @@ const tableQuery = async () => {
       id SERIAL PRIMARY KEY,
       name VARCHAR(50) UNIQUE NOT NULL,
       description TEXT NOT NULL,
-      varitiesId INT NOT NULL,
+      size INT NULL,
+      colour TEXT NULL,
+      quantity INT DEFAULT 0,
+      image1 TEXT,
+      image2 TEXT,
+      price TEXT,
       date_uploaded DATE DEFAULT CURRENT_TIMESTAMP,
+      is_available boolean default false,
       date_edited DATE);`);
 
-    const prod_varitiesTable = await db.query(`CREATE TABLE IF NOT EXISTS prod_varities(
-        id SERIAL PRIMARY KEY,
-        prod_id INT NOT NULL REFERENCES products(id) ON DELETE CASCADE,
-        size INT NOT NULL,
-        colour TEXT NOT NULL,
-        quantity INT DEFAULT 0,
-        image1 TEXT,
-        image2 TEXT,
-        price TEXT
-        );`);
-
     const insertProduct = await db.query(
-      "INSERT INTO products(name, description, varitiesId) VALUES('iphone 6','mobile phone', 1 ) ;"
+      "INSERT INTO products(name, description) VALUES('iphone 6','mobile phone') ;"
     );
-    const insertProd_varieties = await db.query(
-      "INSERT INTO prod_varities(prod_id, size, colour, quantity, price) VALUES(1, 10, 'white', 20, 1200  ) ;"
-    );
+    // const insertProd_varieties = await db.query(
+    //   "INSERT INTO prod_varities(prod_id, size, colour, quantity, price) VALUES(1, 10, 'white', 20, 1200  ) ;"
+    // );
 
     console.log(
-      dropProd_varitiesTable,
       dropProductTable,
       productTable,
-      prod_varitiesTable,
       insertProduct,
-      insertProd_varieties
     );
   } catch (err) {
     console.log(err.stack);
