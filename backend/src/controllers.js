@@ -56,14 +56,14 @@ export const getOneProduct = async (req, res) => {
 
 export const addProduct = async (req, res) => {
   try {
-    const product = await db.query(createProduct, [...req.body]);
+    const product = await db.query(createProduct, [req.body]);
     res.status(201).json({
       data: {
         message: 'product added succesfully',
         product,
       },
     });
-  } catch (error) {
+  } catch (err) {
     return res.status(500).json({
       error: err.message,
     });
